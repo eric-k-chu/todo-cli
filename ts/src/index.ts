@@ -1,24 +1,19 @@
 import inquirer from "inquirer";
+import { TodoAction, TodoActions } from "./types.js";
 
-const answer = await inquirer.prompt([
-  {
-    type: "input",
-    name: "name",
-    message: "What is your name?",
-  },
-  {
-    type: "number",
-    name: "age",
-    message: "Enter your age: ",
-  },
-  {
-    type: "list",
-    name: "gender",
-    message: "What is your gender?",
-    choices: ["Male", "Female", "Prefer not to say"],
-  },
-]);
+console.log("TODO-TS v1.0.0");
 
-console.log(
-  `Your name is ${answer.name}, your age is ${answer.age}, your gender is ${answer.gender}`
-);
+let option: TodoAction = "Create a todo";
+
+do {
+  const answer = await inquirer.prompt([
+    {
+      type: "list",
+      name: "option",
+      message: "Choose an action",
+      choices: TodoActions,
+    },
+  ]);
+  if (answer.option !== "Exit") console.log(`\nYou chose: ${answer.option}\n`);
+  option = answer.option;
+} while (option !== "Exit");

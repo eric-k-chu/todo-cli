@@ -1,1 +1,9 @@
-export type Option = "0" | "1";
+export const TodoActions = [
+  "Create a todo",
+  "Edit a todo",
+  "Update a todo",
+  "Delete a todo",
+  "Exit",
+] as const;
+
+export type TodoAction = (typeof TodoActions)[number];
