@@ -1,5 +1,9 @@
-import fs from "fs";
+import { writeFile } from "node:fs/promises";
 
-fs.writeFileSync("text.txt", "text");
+async function write() {
+  await writeFile("text.txt", "Testing");
+}
 
 console.log("hello world");
+
+write();
