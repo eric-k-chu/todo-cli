@@ -1,31 +1,24 @@
-import { createInterface } from "readline";
-import { Option } from "./types.js";
+import inquirer from "inquirer";
 
-const rl = createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
+const answer = await inquirer.prompt([
+  {
+    type: "input",
+    name: "name",
+    message: "What is your name?",
+  },
+  {
+    type: "number",
+    name: "age",
+    message: "Enter your age: ",
+  },
+  {
+    type: "list",
+    name: "gender",
+    message: "What is your gender?",
+    choices: ["Male", "Female", "Prefer not to say"],
+  },
+]);
 
-function prompt(input?: Option) {
-  return `
-    todo-ts v1.0.0
-  
-    You currently have no todo items.
-  
-    [${input === "1" || !input ? "x" : " "}] Create a new Note
-
-    [${input === "0" ? "x" : " "}] Quit
-
-  `;
-}
-async function main(option?: Option) {
-  rl.question(prompt(option), (input) => {
-    if (input === "0") {
-      rl.close();
-    } else {
-      main();
-    }
-  });
-}
-
-main();
+console.log(
+  `Your name is ${answer.name}, your age is ${answer.age}, your gender is ${answer.gender}`
+);
