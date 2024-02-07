@@ -1,7 +1,7 @@
 import inquirer from "inquirer";
 import { TodoAction, TodoActions } from "./types.js";
 
-console.log("TODO-TS v1.0.0");
+console.log("\nTODO-TS v1.0.0\n");
 
 let action: TodoAction = "Create a todo";
 
