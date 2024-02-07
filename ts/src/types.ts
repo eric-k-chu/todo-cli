@@ -14,5 +14,5 @@ interface Todo {
 }
 
 export interface Todos {
-  todos: Todo[];
+  todoList: Todo[];
 }

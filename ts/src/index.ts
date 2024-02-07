@@ -1,6 +1,7 @@
 import inquirer from "inquirer";
 import { TodoAction, TodoActions } from "./types.js";
 import { readTodos } from "./util/read-todos.js";
+import { displayTodos } from "./util/cli-interface.js";
 
 console.log("\nTODO-TS v1.0.0\n");
 
@@ -10,11 +11,7 @@ try {
   do {
     const todos = await readTodos();
 
-    if (todos.todos.length < 1) {
-      console.log("\nYou have no todos.\n");
-    } else {
-      todos.todos.forEach((n) => console.log(n.action));
-    }
+    displayTodos(todos);
 
     const answer = await inquirer.prompt([
       {
@@ -24,9 +21,26 @@ try {
         choices: TodoActions,
       },
     ]);
-    if (answer.action !== "Exit")
-      console.log(`\nYou chose: ${answer.action}\n`);
+
     action = answer.action;
+
+    switch (action) {
+      case "Create a todo":
+        console.log("\nWIP\n");
+        break;
+      case "Edit a todo":
+        console.log("\nWIP\n");
+        break;
+      case "Update a todo":
+        console.log("\nShow prompt\n");
+        break;
+      case "Delete a todo":
+        console.log("\nWIP\n");
+        break;
+      case "Exit":
+        console.log("\nExiting...");
+        break;
+    }
   } while (action !== "Exit");
 } catch (e) {
   console.error(

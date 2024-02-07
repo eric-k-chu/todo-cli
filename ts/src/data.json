@@ -1,3 +1,24 @@
 {
-  "todos": []
+  "todoList": [
+    {
+      "isCompleted": true,
+      "action": "Setup the project."
+    },
+    {
+      "isCompleted": false,
+      "action": "Add a create todo feature."
+    },
+    {
+      "isCompleted": false,
+      "action": "Add an edit todo feature."
+    },
+    {
+      "isCompleted": false,
+      "action": "Add an update todo feature."
+    },
+    {
+      "isCompleted": false,
+      "action": "Add a delete todo feature."
+    }
+  ]
 }
