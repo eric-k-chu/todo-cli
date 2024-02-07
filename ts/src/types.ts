@@ -7,3 +7,12 @@ export const TodoActions = [
 ] as const;
 
 export type TodoAction = (typeof TodoActions)[number];
+
+interface Todo {
+  isCompleted: boolean;
+  action: string;
+}
+
+export interface Todos {
+  todos: Todo[];
+}
