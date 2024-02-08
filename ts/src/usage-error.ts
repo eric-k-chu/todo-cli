@@ -1,7 +1,7 @@
 export class UsageError extends Error {
   constructor() {
-    const str =
-      "usage: npm run start create <todo>\nusage: npm run start edit <id> <todo>\nusage: npm run start update <id>\nusage: npm run start delete <id>";
-    super(str);
+    const usage = "usage: npm run start";
+    const message = `${usage} create <todo>\n${usage} edit <id> <todo>\n${usage} view <id | all>\n${usage} finish <id>\n${usage} unfinish <id>\n${usage} update <id>\n${usage} delete <id>\n`;
+    super(message);
   }
 }
