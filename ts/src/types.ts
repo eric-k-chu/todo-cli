@@ -1,4 +1,10 @@
-export type Operation = "create" | "edit" | "finish" | "unfinish" | "delete";
+export type Operation =
+  | "create"
+  | "edit"
+  | "view"
+  | "finish"
+  | "unfinish"
+  | "delete";
 
 export interface Todo {
   id: number;

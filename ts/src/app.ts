@@ -17,6 +17,8 @@ try {
     case "edit":
       editTodo(todos, args);
       break;
+    case "view":
+      break;
     case "finish":
       break;
     case "unfinish":
