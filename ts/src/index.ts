@@ -1,6 +1,6 @@
 import { readFile, writeFile } from "fs/promises";
 import { Operation, Todo, Todos } from "./types";
-import { TodoError } from "./todo-error.js";
+import { UsageError } from "./usage-error.js";
 
 try {
   const [, , op, ...args] = process.argv;
@@ -37,12 +37,7 @@ try {
 
       break;
     default:
-      throw new TodoError(
-        "usage: npm run start create <todo>",
-        "usage: npm run start edit <id> <todo>",
-        "usage: npm run start update <id>",
-        "usage: npm run start delete <id>`"
-      );
+      throw new UsageError();
   }
 
   const newJson = JSON.stringify(todos, null, 2);
