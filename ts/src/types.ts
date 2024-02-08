@@ -1,4 +1,4 @@
-export type Operation = "create" | "edit" | "update" | "delete";
+export type Operation = "create" | "edit" | "check" | "uncheck" | "delete";
 
 export interface Todo {
   id: number;
