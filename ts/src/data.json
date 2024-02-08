@@ -1,24 +1,21 @@
 {
-  "todoList": [
-    {
-      "isCompleted": true,
-      "action": "Setup the project."
-    },
-    {
+  "nextId": 5,
+  "todoList": {
+    "1": {
       "isCompleted": false,
-      "action": "Add a create todo feature."
+      "todo": "Build the create feature"
     },
-    {
+    "2": {
       "isCompleted": false,
-      "action": "Add an edit todo feature."
+      "todo": "Build the create feature"
     },
-    {
+    "3": {
       "isCompleted": false,
-      "action": "Add an update todo feature."
+      "todo": "Build the create feature"
     },
-    {
+    "4": {
       "isCompleted": false,
-      "action": "Add a delete todo feature."
+      "todo": "Build the create feature"
     }
-  ]
+  }
 }
