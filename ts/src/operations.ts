@@ -28,6 +28,20 @@ export function editTodo(todos: Todos, args: string[]): void {
   console.log(`Todo id: ${id} successfully edited.`);
 }
 
+export function viewTodo(todos: Todos, args: string[]): void {
+  const [cmd] = args;
+
+  if (cmd === "all") {
+    todos.todoList.forEach((n) => {
+      console.log(`${n.id}:  [${n.isCompleted ? "✓" : " "}] ${n.todo}`);
+    });
+  } else {
+    const index = getIndexById(todos, cmd, "view");
+    const todo = todos.todoList[index];
+    console.log(`${todo.id}:  [${todo.isCompleted ? "✓" : " "}] ${todo.todo}`);
+  }
+}
+
 export function deleteTodo(todos: Todos, args: string[]): void {
   const [id] = args;
   const index = getIndexById(todos, id, "delete");

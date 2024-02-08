@@ -1,7 +1,7 @@
 import { readFile, writeFile } from "fs/promises";
 import { logError } from "./log-error.js";
 import { UsageError } from "./usage-error.js";
-import { createTodo, deleteTodo, editTodo } from "./operations.js";
+import { createTodo, deleteTodo, editTodo, viewTodo } from "./operations.js";
 import { Operation, Todos } from "./types.js";
 
 try {
@@ -18,6 +18,7 @@ try {
       editTodo(todos, args);
       break;
     case "view":
+      viewTodo(todos, args);
       break;
     case "finish":
       break;
