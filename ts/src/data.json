@@ -7,15 +7,15 @@
     },
     "2": {
       "isCompleted": false,
-      "todo": "Build the create feature"
+      "todo": "Build the view feature"
     },
     "3": {
       "isCompleted": false,
-      "todo": "Build the create feature"
+      "todo": "Build the update feature"
     },
     "4": {
       "isCompleted": false,
-      "todo": "Build the create feature"
+      "todo": "Build the delete feature"
     }
   }
 }
