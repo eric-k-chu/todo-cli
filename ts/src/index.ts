@@ -23,14 +23,17 @@ try {
       console.log("edit");
       break;
     case "update":
-      console.log("update");
+      const [id] = args;
       break;
     case "delete":
       console.log("delete");
       break;
     default:
       throw new Error(
-        "usage: npm run start <create | edit | update | delete> arg1 arg2"
+        `usage: npm run start create <todo>
+usage: npm run start edit <id> <todo>
+usage: npm run start update <id>
+usage: npm run start delete <id>`
       );
   }
 
