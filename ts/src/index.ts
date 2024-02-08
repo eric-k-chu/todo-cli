@@ -1,8 +1,8 @@
 import { readFile, writeFile } from "fs/promises";
-import { createTodo, deleteTodo } from "./operations.js";
-import { TodoError } from "./todo-error.js";
-import { Operation, Todos } from "./types";
+import { logError } from "./log-error.js";
 import { UsageError } from "./usage-error.js";
+import { createTodo, deleteTodo } from "./operations.js";
+import { Operation, Todos } from "./types";
 
 try {
   const [, , op, ...args] = process.argv;
@@ -32,12 +32,6 @@ try {
 
   if (json !== newJson) await writeFile("src/data.json", newJson);
 } catch (e) {
-  if (e instanceof TodoError) {
-    console.error(`<${e.op}> ${e.message}`);
-  } else {
-    console.error(
-      e instanceof Error ? e.message : "An unknown error has occured."
-    );
-  }
+  logError(e);
   process.exit(1);
 }
