@@ -41,5 +41,5 @@ try {
   console.error(
     e instanceof Error ? e.message : "An unknown error has occured."
   );
-  process.exit(-1);
+  process.exit(1);
 }
