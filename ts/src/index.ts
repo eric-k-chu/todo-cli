@@ -1,7 +1,8 @@
 import { readFile, writeFile } from "fs/promises";
-import { Operation, Todo, Todos } from "./types";
-import { UsageError } from "./usage-error.js";
+import { createTodo, deleteTodo } from "./operations.js";
 import { TodoError } from "./todo-error.js";
+import { Operation, Todos } from "./types";
+import { UsageError } from "./usage-error.js";
 
 try {
   const [, , op, ...args] = process.argv;
@@ -11,15 +12,7 @@ try {
 
   switch (op as Operation) {
     case "create":
-      const [todo] = args;
-
-      console.log(`Created todo "${todo}" with id: ${todos.nextId}.`);
-
-      todos.todoList.push({
-        id: todos.nextId++,
-        isCompleted: false,
-        todo,
-      } as Todo);
+      createTodo(todos, args);
       break;
     case "edit":
       console.log("edit");
@@ -29,16 +22,7 @@ try {
     case "unfinish":
       break;
     case "delete":
-      const [id] = args;
-
-      if (!Number.isInteger(id))
-        throw new TodoError("delete", "id must be a valid positive integer.");
-
-      const index = todos.todoList.findIndex((n) => n.id === Number(id));
-      todos.todoList.splice(index, 1);
-
-      console.log(`Todo id: ${id} successfully deleted.`);
-
+      deleteTodo(todos, args);
       break;
     default:
       throw new UsageError();
