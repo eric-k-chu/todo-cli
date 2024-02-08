@@ -1,5 +1,6 @@
 import { readFile, writeFile } from "fs/promises";
 import { Operation, Todo, Todos } from "./types";
+import { TodoError } from "./todo-error.js";
 
 try {
   const [, , op, ...args] = process.argv;
@@ -11,7 +12,7 @@ try {
     case "create":
       const [todo] = args;
 
-      console.log(`created todo "${todo}" with id: ${todos.nextId}`);
+      console.log(`Created todo "${todo}" with id: ${todos.nextId}.`);
 
       todos.todoList.push({
         id: todos.nextId++,
@@ -23,17 +24,22 @@ try {
       console.log("edit");
       break;
     case "update":
-      const [id] = args;
       break;
     case "delete":
-      console.log("delete");
+      const [id] = args;
+
+      const index = todos.todoList.findIndex((n) => n.id === Number(id));
+      todos.todoList.splice(index, 1);
+
+      console.log(`Todo id: ${id} successfully deleted.`);
+
       break;
     default:
-      throw new Error(
-        `usage: npm run start create <todo>
-usage: npm run start edit <id> <todo>
-usage: npm run start update <id>
-usage: npm run start delete <id>`
+      throw new TodoError(
+        "usage: npm run start create <todo>",
+        "usage: npm run start edit <id> <todo>",
+        "usage: npm run start update <id>",
+        "usage: npm run start delete <id>`"
       );
   }
 
