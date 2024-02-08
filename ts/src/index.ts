@@ -23,9 +23,9 @@ try {
     case "edit":
       console.log("edit");
       break;
-    case "check":
+    case "finish":
       break;
-    case "uncheck":
+    case "unfinish":
       break;
     case "delete":
       const [id] = args;
