@@ -2,7 +2,7 @@ import { readFile, writeFile } from "fs/promises";
 import { logError } from "./log-error.js";
 import { UsageError } from "./usage-error.js";
 import { createTodo, deleteTodo } from "./operations.js";
-import { Operation, Todos } from "./types";
+import { Operation, Todos } from "./types.js";
 
 try {
   const [, , op, ...args] = process.argv;
