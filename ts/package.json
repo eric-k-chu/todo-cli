@@ -12,11 +12,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/inquirer": "^9.0.7",
     "@types/node": "^20.11.16",
     "ts-node": "^10.9.2"
   },
-  "dependencies": {
-    "inquirer": "^9.2.14"
-  }
+  "dependencies": {}
 }
