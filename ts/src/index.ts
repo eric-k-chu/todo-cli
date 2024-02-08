@@ -10,6 +10,9 @@ try {
   switch (op as Operation) {
     case "create":
       const [todo] = args;
+
+      console.log(`created todo "${todo}" with id: ${todos.nextId}`);
+
       todos.todoList.push({
         id: todos.nextId++,
         isCompleted: false,
