@@ -1,21 +1,30 @@
 {
-  "nextId": 5,
-  "todoList": {
-    "1": {
+  "nextId": 6,
+  "todoList": [
+    {
+      "id": 1,
       "isCompleted": false,
       "todo": "Build the create feature"
     },
-    "2": {
+    {
+      "id": 2,
       "isCompleted": false,
       "todo": "Build the view feature"
     },
-    "3": {
+    {
+      "id": 3,
       "isCompleted": false,
       "todo": "Build the update feature"
     },
-    "4": {
+    {
+      "id": 4,
       "isCompleted": false,
       "todo": "Build the delete feature"
+    },
+    {
+      "id": 5,
+      "isCompleted": false,
+      "todo": "Push to github"
     }
-  }
+  ]
 }
