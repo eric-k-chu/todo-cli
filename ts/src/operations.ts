@@ -1,5 +1,5 @@
 import { TodoError } from "./todo-error.js";
-import { Operation, Todos } from "./types";
+import { Operation, Todo, Todos } from "./types";
 
 function validateId(todos: Todos, id: string, op: Operation): number {
   if (!Number.isInteger(+id))
@@ -28,18 +28,22 @@ export function editTodo(todos: Todos, args: string[]): void {
   console.log(`Todo id: ${id} successfully edited.`);
 }
 
-export function viewTodo(todos: Todos, args: string[]): void {
+export function viewTodo(todos: Todos, args: string[]): Todo[] {
   const [cmd] = args;
 
   if (cmd === "all") {
+    const todoList: Todo[] = [];
     for (const key in todos.todoList) {
       const todo = todos.todoList[key];
       console.log(`${key}:  [${todo.isCompleted ? "✓" : " "}] ${todo.todo}`);
+      todoList.push({ isCompleted: todo.isCompleted, todo: todo.todo });
     }
+    return todoList;
   } else {
     const todoId = validateId(todos, cmd, "view");
     const todo = todos.todoList[todoId];
     console.log(`${todoId}:  [${todo.isCompleted ? "✓" : " "}] ${todo.todo}`);
+    return [{ isCompleted: todo.isCompleted, todo: todo.todo }];
   }
 }
 
@@ -68,6 +72,7 @@ export function unfinishTodo(todos: Todos, args: string[]): void {
 export function deleteTodo(todos: Todos, args: string[]): void {
   const [id] = args;
   const todoId = validateId(todos, id, "delete");
+  const deletedTodo = todos.todoList[todoId];
   delete todos.todoList[todoId];
   console.log(`Todo id: ${id} successfully deleted.`);
 }
