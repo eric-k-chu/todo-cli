@@ -1,16 +1,14 @@
 {
   "name": "ts",
   "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
+  "description": "TODO-CLI with TypeSript",
   "type": "module",
   "scripts": {
     "start": "ts-node-esm ./src/app.ts",
     "test": "jest --watchAll"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Eric Chu",
+  "license": "MIT",
   "devDependencies": {
     "@types/jest": "^29.5.12",
     "@types/node": "^20.11.16",
