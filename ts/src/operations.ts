@@ -1,5 +1,5 @@
 import { TodoError } from "./todo-error.js";
-import { Operation, Todo, Todos } from "./types";
+import { Operation, Todos } from "./types";
 
 function validateId(todos: Todos, id: string, op: Operation): number {
   if (!Number.isInteger(+id))
