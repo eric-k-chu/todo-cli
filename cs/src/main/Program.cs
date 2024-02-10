@@ -4,7 +4,7 @@ class TodoCli
 {
     static void Main(string[] args)
     {
-        if (args.Length == 0)
+        if (args.Length <= 1)
         {
             Console.WriteLine("No command-line arguments provided.");
             return;
