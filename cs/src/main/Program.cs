@@ -1,4 +1,5 @@
 ﻿using System;
+using Todo;
 
 class TodoCli
 {
@@ -6,16 +7,12 @@ class TodoCli
     {
         if (args.Length <= 1)
         {
-            Console.WriteLine("No command-line arguments provided.");
+            Console.WriteLine("usage: dotnet run <arg1> <arg2> ...");
             return;
         }
 
         string op = args[0];
-        System.Console.WriteLine(op);
-    }
-
-    public static void CreateTodo()
-    {
-        System.Console.WriteLine("Hello");
+        Todos todo = new Todos();
+        Console.WriteLine(todo.NextId);
     }
 }
