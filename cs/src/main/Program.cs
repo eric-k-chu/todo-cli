@@ -6,7 +6,14 @@ class TodoCli
   {
     foreach (string arg in args)
     {
-      Console.WriteLine(arg);
+      System.Console.WriteLine(arg);
     }
+
+    CreateTodo();
+  }
+
+  public static void CreateTodo()
+  {
+    System.Console.WriteLine("Hello");
   }
 }
