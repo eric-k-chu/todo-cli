@@ -29,3 +29,18 @@ To Run:
 ```
 npm run start
 ```
+
+# cs
+
+Build:
+
+```
+dotnet build
+dotnet run
+```
+
+Format:
+
+```
+dotnet csharpier .
+```
