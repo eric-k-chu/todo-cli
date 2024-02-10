@@ -41,6 +41,4 @@ dotnet run
 
 Format:
 
-```
-dotnet csharpier .
-```
+ctrl + k, ctrl + d

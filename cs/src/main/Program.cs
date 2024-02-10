@@ -2,19 +2,20 @@
 
 class TodoCli
 {
-  static void Main(string[] args)
-  {
-    if (args.Length == 0)
+    static void Main(string[] args)
     {
-      Console.WriteLine("No command-line arguments provided.");
+        if (args.Length == 0)
+        {
+            Console.WriteLine("No command-line arguments provided.");
+            return;
+        }
+
+        string op = args[0];
+        System.Console.WriteLine(op);
     }
 
-    string op = args[0];
-    System.Console.WriteLine(op);
-  }
-
-  public static void CreateTodo()
-  {
-    System.Console.WriteLine("Hello");
-  }
+    public static void CreateTodo()
+    {
+        System.Console.WriteLine("Hello");
+    }
 }
