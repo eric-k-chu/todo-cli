@@ -1,45 +1,49 @@
 #include <iostream>
-#include <stdio.h>
-#include "rapidjson/document.h"
-#include "rapidjson/filereadstream.h"
+#include <fstream>
+#include <string>
+#include <nlohmann/json.hpp>
 
-using namespace rapidjson;
+using json = nlohmann::json;
 
-int main(int argc, char* argv[]) {
-	try
+struct Todo
+{
+	bool isCompleted;
+	std::string todo;
+};
+
+struct Todos
+{
+	int nextId;
+	std::map<std::string, Todo> todoList;
+};
+
+int main(int argc, char *argv[])
+{
+	std::ifstream file("data.json");
+	if (!file.is_open())
 	{
-		FILE* fp = fopen("data.json", "rb");
-		if (!fp) {
-			std::cerr << "Failed to open file." << std::endl;
-			return 1;
-		}
-
-		char buf[65536];
-		FileReadStream is(fp, buf, sizeof(buf));
-
-		fclose(fp);
-
-		Document doc;
-		doc.ParseStream(is);
-
-		if (doc.HasParseError()) {
-			std::cerr << "Parse error." << std::endl;
-			return 1;
-		}
-
-
-
-		if (argc < 3) throw 400;
-
-		for (int i = 0; i < argc; i++) {
-			printf("%d: %s\n", i, argv[i]);
-		}
-
-		printf("argc count is: %d", argc);
+		std::cerr << "Error: Could not open file" << std::endl;
+		return 1;
 	}
-	catch (int err)
+
+	json j;
+	file >> j;
+
+	Todos todos;
+	todos.nextId = j["nextId"];
+	for (auto &[key, value] : j["todoList"].items())
 	{
-		printf("%d error: usage <operation> arg1 arg2", err);
+		Todo todo;
+		todo.isCompleted = value["isCompleted"];
+		todo.todo = value["todo"];
+		todos.todoList[key] = todo;
+	}
+
+	std::cout << "NextId: " << todos.nextId << std::endl;
+	std::cout << "TodoList:" << std::endl;
+	for (auto &[key, todo] : todos.todoList)
+	{
+		std::cout << "\tKey: " << key << ", IsCompleted: " << todo.isCompleted << ", Todo: " << todo.todo << std::endl;
 	}
 
 	return 0;

@@ -1,6 +1,7 @@
 # c++
 *.exe
 *.o
+/cpp/nlohmann
 
 # ts
 /ts/node_modules

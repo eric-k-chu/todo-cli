@@ -6,15 +6,8 @@ TODO-CLI CRUD application with TypeScript, C++, C#, Go, and Rust
 
 Installation:
 
-```
-mingw32-make
-```
-
-To Run:
-
-```
-./main
-```
+- Download the `json.hpp` file from https://github.com/nlohmann/json
+- Place it in `/cpp/nlohmann/json.hpp`
 
 # typescript
 
