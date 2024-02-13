@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"strconv"
 )
 
 type Todo struct {
@@ -17,8 +18,33 @@ type Todos struct {
 }
 
 func viewTodos(todos Todos, args []string) {
-	for key, todo := range todos.TodoList {
-		fmt.Printf("Key: %s, isCompleted: %t, Todo: %s\n", key, todo.IsCompleted, todo.Todo)
+	key := args[2]
+
+	if key == "all" {
+		for key, todo := range todos.TodoList {
+			isCompleted := "✓"
+			if !todo.IsCompleted {
+				isCompleted = " "
+			}
+
+			fmt.Printf("%s: [%s] %s\n", key, isCompleted, todo.Todo)
+		}
+	} else if _, err := strconv.Atoi(key); err == nil {
+		todo, ok := todos.TodoList[key]
+		if !ok {
+			fmt.Println("Specified key does not exist in your todos:", key)
+			return
+		}
+
+		isCompleted := "✓"
+		if !todo.IsCompleted {
+			isCompleted = " "
+		}
+
+		fmt.Printf("%s: [%s] %s\n", key, isCompleted, todo.Todo)
+	} else {
+		fmt.Println("Unknown cmd:", key)
+		return
 	}
 }
 
