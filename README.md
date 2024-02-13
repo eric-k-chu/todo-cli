@@ -11,6 +11,8 @@ Installation:
 
 # typescript
 
+\*Does not work with Node v20.11.0+
+
 Installation:
 
 ```
