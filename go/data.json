@@ -1,5 +1,5 @@
 {
-  "nextId": 5,
+  "nextId": 7,
   "todoList": {
     "1": {
       "isCompleted": false,
@@ -16,6 +16,14 @@
     "4": {
       "isCompleted": false,
       "todo": "Build the delete feature"
+    },
+    "5": {
+      "isCompleted": false,
+      "todo": "hello world"
+    },
+    "6": {
+      "isCompleted": false,
+      "todo": "testing"
     }
   }
 }

@@ -48,6 +48,37 @@ func viewTodos(todos Todos, args []string) {
 	}
 }
 
+func createTodos(todos *Todos, args []string) {
+	desc := args[2]
+	newTodo := Todo{
+		IsCompleted: false,
+		Todo:        desc,
+	}
+
+	key := strconv.Itoa(int(todos.NextId))
+	todos.TodoList[key] = newTodo
+	todos.NextId++
+
+	fmt.Println("Created new todo with key: ", key)
+}
+
+func writeFile(todos Todos) error {
+	file, err := os.Create("data.json")
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	encoder := json.NewEncoder(file)
+	encoder.SetIndent("", "  ")
+	err = encoder.Encode(todos)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func main() {
 	if len(os.Args) < 3 {
 		fmt.Println("args must be greater than or equal to 3.")
@@ -74,7 +105,7 @@ func main() {
 	case "view":
 		viewTodos(todos, os.Args)
 	case "create":
-		fmt.Println("Created.")
+		createTodos(&todos, os.Args)
 	case "edit":
 		fmt.Println("Edited.")
 	case "update":
@@ -88,4 +119,11 @@ func main() {
 	default:
 		fmt.Println("operation does not match create, edit, update, delete, finish, or unfinish.")
 	}
+
+	fileErr := writeFile(todos)
+	if fileErr != nil {
+		fmt.Println("Error writing to a file:", fileErr)
+		return
+	}
+	fmt.Println("Exiting...")
 }
