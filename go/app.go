@@ -49,13 +49,12 @@ func viewTodos(todos Todos, args []string) {
 }
 
 func main() {
-	if len(os.Args) < 2 {
-		fmt.Println("args must be greater or equal to 2.")
+	if len(os.Args) < 3 {
+		fmt.Println("args must be greater than or equal to 3.")
 		return
 	}
 
 	file, err := os.Open("data.json")
-
 	if err != nil {
 		fmt.Println("Error:", err)
 		return
@@ -65,7 +64,6 @@ func main() {
 	var todos Todos
 	decoder := json.NewDecoder(file)
 	err = decoder.Decode(&todos)
-
 	if err != nil {
 		fmt.Println("Error:", err)
 		return
