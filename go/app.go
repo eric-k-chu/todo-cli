@@ -70,7 +70,6 @@ func main() {
 	}
 
 	op := os.Args[1]
-
 	switch op {
 	case "view":
 		viewTodos(todos, os.Args)
