@@ -17,9 +17,21 @@ type Todos struct {
 	TodoList map[string]Todo `json:"todoList"`
 }
 
-func viewTodos(todos Todos, args []string) {
-	key := args[2]
+func validateArgs(args []string, length int) ([]string, error) {
+	if len(args) < length {
+		return nil, fmt.Errorf("args length must be greater than %d", length)
+	}
 
+	return args, nil
+}
+
+func viewTodos(todos Todos, arg []string) error {
+	args, err := validateArgs(arg, 3)
+	if err != nil {
+		return err
+	}
+
+	key := args[2]
 	if key == "all" {
 		for key, todo := range todos.TodoList {
 			isCompleted := "✓"
@@ -29,11 +41,11 @@ func viewTodos(todos Todos, args []string) {
 
 			fmt.Printf("%s: [%s] %s\n", key, isCompleted, todo.Todo)
 		}
+		return nil
 	} else if _, err := strconv.Atoi(key); err == nil {
 		todo, ok := todos.TodoList[key]
 		if !ok {
-			fmt.Println("Specified key does not exist in your todos:", key)
-			return
+			return fmt.Errorf("Specified key %s does not exist in your todos:", key)
 		}
 
 		isCompleted := "✓"
@@ -42,13 +54,17 @@ func viewTodos(todos Todos, args []string) {
 		}
 
 		fmt.Printf("%s: [%s] %s\n", key, isCompleted, todo.Todo)
+		return nil
 	} else {
-		fmt.Println("Unknown cmd:", key)
-		return
+		return fmt.Errorf("Unknown cmd: %s", key)
 	}
 }
 
-func createTodos(todos *Todos, args []string) {
+func createTodos(todos *Todos, arg []string) error {
+	args, err := validateArgs(arg, 3)
+	if err != nil {
+		return err
+	}
 	desc := args[2]
 	newTodo := Todo{
 		IsCompleted: false,
@@ -60,6 +76,25 @@ func createTodos(todos *Todos, args []string) {
 	todos.NextId++
 
 	fmt.Println("Created new todo with key: ", key)
+	return nil
+}
+
+func editTodo(todos *Todos, arg []string) error {
+	args, err := validateArgs(arg, 4)
+	if err != nil {
+		return err
+	}
+
+	key := args[2]
+	todo, ok := todos.TodoList[key]
+	if !ok {
+		return fmt.Errorf("Todo with key %s does not exist", key)
+	}
+
+	todo.Todo = args[3]
+	todos.TodoList[key] = todo
+
+	return nil
 }
 
 func writeFile(todos Todos) error {
@@ -80,8 +115,9 @@ func writeFile(todos Todos) error {
 }
 
 func main() {
-	if len(os.Args) < 3 {
-		fmt.Println("args must be greater than or equal to 3.")
+	_, err := validateArgs(os.Args, 2)
+	if err != nil {
+		fmt.Println("Error:", err)
 		return
 	}
 
@@ -103,11 +139,23 @@ func main() {
 	op := os.Args[1]
 	switch op {
 	case "view":
-		viewTodos(todos, os.Args)
+		err := viewTodos(todos, os.Args)
+		if err != nil {
+			fmt.Println("Error:", os.Args)
+			return
+		}
 	case "create":
-		createTodos(&todos, os.Args)
+		err := createTodos(&todos, os.Args)
+		if err != nil {
+			fmt.Println("Error:", err)
+			return
+		}
 	case "edit":
-		fmt.Println("Edited.")
+		err := editTodo(&todos, os.Args)
+		if err != nil {
+			fmt.Println("Error:", err)
+			return
+		}
 	case "update":
 		fmt.Println("Updated.")
 	case "delete":
@@ -125,5 +173,4 @@ func main() {
 		fmt.Println("Error writing to a file:", fileErr)
 		return
 	}
-	fmt.Println("Exiting...")
 }
