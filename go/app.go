@@ -45,7 +45,7 @@ func viewTodos(todos Todos, arg []string) error {
 	} else if _, err := strconv.Atoi(key); err == nil {
 		todo, ok := todos.TodoList[key]
 		if !ok {
-			return fmt.Errorf("Specified key %s does not exist in your todos:", key)
+			return fmt.Errorf("specified key %s does not exist in your todos", key)
 		}
 
 		isCompleted := "✓"
@@ -56,7 +56,7 @@ func viewTodos(todos Todos, arg []string) error {
 		fmt.Printf("%s: [%s] %s\n", key, isCompleted, todo.Todo)
 		return nil
 	} else {
-		return fmt.Errorf("Unknown cmd: %s", key)
+		return fmt.Errorf("unknown cmd: %s", key)
 	}
 }
 
@@ -92,6 +92,45 @@ func editTodo(todos *Todos, arg []string) error {
 	}
 
 	todo.Todo = args[3]
+	todos.TodoList[key] = todo
+
+	return nil
+}
+
+func deleteTodo(todos *Todos, arg []string) error {
+	args, err := validateArgs(arg, 3)
+	if err != nil {
+		return err
+	}
+
+	key := args[2]
+	_, ok := todos.TodoList[key]
+	if !ok {
+		return fmt.Errorf("Todo with key %s does not exist", key)
+	}
+
+	delete(todos.TodoList, key)
+
+	return nil
+}
+
+func updateTodo(todos *Todos, arg []string, isFinished bool) error {
+	args, err := validateArgs(arg, 3)
+	if err != nil {
+		return err
+	}
+
+	key := args[2]
+	todo, ok := todos.TodoList[key]
+	if !ok {
+		return fmt.Errorf("Todo with key %s does not exist", key)
+	}
+
+	if isFinished {
+		todo.IsCompleted = true
+	} else {
+		todo.IsCompleted = false
+	}
 	todos.TodoList[key] = todo
 
 	return nil
@@ -156,14 +195,24 @@ func main() {
 			fmt.Println("Error:", err)
 			return
 		}
-	case "update":
-		fmt.Println("Updated.")
 	case "delete":
-		fmt.Println("Deleted.")
+		err := deleteTodo(&todos, os.Args)
+		if err != nil {
+			fmt.Println("Error:", err)
+			return
+		}
 	case "finish":
-		fmt.Println("Finished.")
+		err := updateTodo(&todos, os.Args, true)
+		if err != nil {
+			fmt.Println("Error:", err)
+			return
+		}
 	case "unfinish":
-		fmt.Println("Unfinished.")
+		err := updateTodo(&todos, os.Args, false)
+		if err != nil {
+			fmt.Println("Error:", err)
+			return
+		}
 	default:
 		fmt.Println("operation does not match create, edit, update, delete, finish, or unfinish.")
 	}
