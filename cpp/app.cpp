@@ -1,24 +1,23 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <string.h>
 #include "json.hpp"
+#include "todos.hpp"
 
 using json = nlohmann::json;
 
-struct Todo
-{
-	bool isCompleted;
-	std::string todo;
-};
-
-struct Todos
-{
-	int nextId;
-	std::map<std::string, Todo> todoList;
-};
-
 int main(int argc, char *argv[])
 {
+	if (argc < 3)
+	{
+		std::cerr << "usage: <operation> <cmd>" << std::endl;
+		return 1;
+	}
+
+	const char *operation = argv[1];
+	const char *cmd = argv[2];
+
 	std::ifstream file("data.json");
 	if (!file.is_open())
 	{
@@ -39,11 +38,33 @@ int main(int argc, char *argv[])
 		todos.todoList[key] = todo;
 	}
 
-	std::cout << "NextId: " << todos.nextId << std::endl;
-	std::cout << "TodoList:" << std::endl;
-	for (auto &[key, todo] : todos.todoList)
+	if (strcmp(operation, "create") == 0)
 	{
-		std::cout << "\tKey: " << key << ", IsCompleted: " << todo.isCompleted << ", Todo: " << todo.todo << std::endl;
+		std::cout << "create" << std::endl;
+	}
+	else if (strcmp(operation, "view") == 0)
+	{
+		std::cout << "view" << std::endl;
+	}
+	else if (strcmp(operation, "edit") == 0)
+	{
+		std::cout << "edit" << std::endl;
+	}
+	else if (strcmp(operation, "delete") == 0)
+	{
+		std::cout << "delete" << std::endl;
+	}
+	else if (strcmp(operation, "finish") == 0)
+	{
+		std::cout << "finish" << std::endl;
+	}
+	else if (strcmp(operation, "unfinish") == 0)
+	{
+		std::cout << "unfinish" << std::endl;
+	}
+	else
+	{
+		std::cerr << "Invalid operation. Must be create, view, edit, delete, finish, or unfinish." << std::endl;
 	}
 
 	return 0;
