@@ -13,3 +13,17 @@ npm run start
 ```
 go run .
 ```
+
+# /cpp
+
+`json.hpp` _from https://github.com/nlohmann/json must be downloaded and placed into /cpp_
+
+Compile:
+
+```
+g++ -std=c++17 app.cpp -o app
+```
+
+```
+./app.exe
+```
