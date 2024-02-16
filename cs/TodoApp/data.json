@@ -1,5 +1,5 @@
 {
-  "nextId": 10,
+  "nextId": 11,
   "todoList": {
     "1": {
       "isCompleted": false,
@@ -20,6 +20,10 @@
     "7": {
       "isCompleted": true,
       "todo": "Build the edit feature"
+    },
+    "10": {
+      "isCompleted": false,
+      "todo": "bla"
     }
   }
 }
