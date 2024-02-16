@@ -18,7 +18,7 @@
       "todo": "Build the delete feature"
     },
     "7": {
-      "isCompleted": true,
+      "isCompleted": false,
       "todo": "Build the edit feature"
     }
   }

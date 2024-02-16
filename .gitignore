@@ -1,8 +1,3 @@
-# c++
-*.exe
-*.o
-json.hpp
-
 # ts
 /ts/node_modules
 
@@ -490,3 +485,5 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+*.sln
