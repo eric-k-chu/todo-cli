@@ -16,6 +16,8 @@ namespace TodoApp
 
     internal class Program
     {
+        static string dataFile = "data.json";
+
         static void Main(string[] args)
         {
             if (args.Length < 2)
@@ -23,10 +25,14 @@ namespace TodoApp
                 Console.WriteLine("Usage: <operation> <cmd>");
             }
 
-            string jsonString = JsonSerializer.Serialize(new Todo { isCompleted = true });
-            File.WriteAllText("test.json", jsonString);
+            // Reading from file
+            string jsonTodos = File.ReadAllText(dataFile);
+            Todos todos = JsonSerializer.Deserialize<Todos>(jsonTodos)!;
 
-            Console.WriteLine(jsonString);
+            
+            // Write to file
+            jsonTodos = JsonSerializer.Serialize(todos, new JsonSerializerOptions { WriteIndented = true});
+            File.WriteAllText(dataFile, jsonTodos);
         }
     }
 }
