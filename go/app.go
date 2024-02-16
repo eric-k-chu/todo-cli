@@ -125,12 +125,7 @@ func updateTodo(todos *Todos, arg []string, isFinished bool) error {
 	if !ok {
 		return fmt.Errorf("Todo with key %s does not exist", key)
 	}
-
-	if isFinished {
-		todo.IsCompleted = true
-	} else {
-		todo.IsCompleted = false
-	}
+	todo.IsCompleted = isFinished
 	todos.TodoList[key] = todo
 
 	return nil
