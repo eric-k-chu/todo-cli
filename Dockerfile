@@ -1,5 +1,4 @@
 FROM paketobuildpacks/dotnet-core AS dotnet
-FROM gcc AS gcc
 FROM golang AS golang
 
 # Install NVM
