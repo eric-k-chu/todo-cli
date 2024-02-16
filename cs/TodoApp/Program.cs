@@ -41,7 +41,7 @@ namespace TodoApp
                     ViewTodo(todos, args[1]);
                     break;
                 case "edit":
-                    Console.WriteLine("Create");
+                    EditTodo(ref todos, args[1], args[2]);
                     break;
                 case "delete":
                     Console.WriteLine("Create");
@@ -62,20 +62,20 @@ namespace TodoApp
             File.WriteAllText(dataFile, jsonTodos);
         }
 
-        static void CreateTodo(ref Todos todo, string todoStr)
+        static void CreateTodo(ref Todos todos, string todoStr)
         {
             Todo newTodo = new Todo
             {
                 isCompleted = false,
                 todo = todoStr,
             };
-            todo.todoList.Add(todo.nextId.ToString(), newTodo);
-            todo.nextId++;
+            todos.todoList.Add(todos.nextId.ToString(), newTodo);
+            todos.nextId++;
         }
 
-        static void ViewTodo(Todos todo, string cmd)
+        static void ViewTodo(Todos todos, string cmd)
         {
-            if (todo.todoList.Count == 0)
+            if (todos.todoList.Count == 0)
             {
                 Console.WriteLine("You have todos.");
                 return;
@@ -83,7 +83,7 @@ namespace TodoApp
 
             if (cmd.Equals("all"))
             {
-                foreach (KeyValuePair<string, Todo> item in todo.todoList)
+                foreach (KeyValuePair<string, Todo> item in todos.todoList)
                 {
                     string status = item.Value.isCompleted ? "✓" : " ";
                     Console.WriteLine($"{item.Key}: [{status}] {item.Value.todo}");
@@ -93,13 +93,13 @@ namespace TodoApp
             {
                 if (int.TryParse(cmd, out int key))
                 {
-                    if (!todo.todoList.ContainsKey(cmd))
+                    if (!todos.todoList.ContainsKey(cmd))
                     {
                         Console.Error.WriteLine($"Todo with key '{cmd}' does not exist in your todos.");
                     }
                     else
                     {
-                        Todo thisTodo = todo.todoList[cmd];
+                        Todo thisTodo = todos.todoList[cmd];
                         string status = thisTodo.isCompleted ? "✓" : " ";
                         Console.WriteLine($"{cmd}: [{status}] {thisTodo.todo}");
                     }
@@ -107,6 +107,21 @@ namespace TodoApp
                 else
                 {
                     Console.Error.WriteLine($"Specified key '{cmd}' must be a valid positive integer.");
+                }
+            }
+        }
+
+        static void EditTodo(ref Todos todos, string key, string todoStr)
+        {
+            if (int.TryParse(key, out int id))
+            {
+                if (!todos.todoList.ContainsKey(key))
+                {
+                    Console.Error.WriteLine($"Todo with key '{key}' does not exist in your todos.");
+                }
+                else
+                {
+                    todos.todoList[key].todo = todoStr;
                 }
             }
         }
