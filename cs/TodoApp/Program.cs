@@ -47,10 +47,10 @@ namespace TodoApp
                     DeleteTodo(ref todos, args[1]);
                     break;
                 case "finish":
-                    Console.WriteLine("Create");
+                    UpdateTodo(ref todos, args[1], true);
                     break;
                 case "unfinish":
-                    Console.WriteLine("Create");
+                    UpdateTodo(ref todos, args[1], false);
                     break;
                 default:
                     Console.Error.WriteLine($"Unknown operation '{operation}'. Must be create, view, edit, delete, finish, or unfinish.");
@@ -133,6 +133,18 @@ namespace TodoApp
             else
             {
                 todos.todoList.Remove(key);
+            }
+        }
+    
+        static void UpdateTodo(ref Todos todos, string key, bool isFinished)
+        {
+            if (!todos.todoList.ContainsKey(key))
+            {
+                Console.Error.WriteLine($"Todo with key '{key}' does not exist in your todos.");
+            }
+            else
+            {
+                todos.todoList[key].isCompleted = isFinished;
             }
         }
     }
