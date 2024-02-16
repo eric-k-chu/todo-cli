@@ -18,7 +18,7 @@ op = sys.argv[1]
 
 match op:
   case "create":
-    createTodo()
+    createTodo(todos, sys.argv[2])
   case "view":
     viewTodo(todos, sys.argv[2])
   case "edit":
@@ -31,3 +31,6 @@ match op:
     updateTodo(False)
   case _:
     print(f"Invalid operation '{op}'. Must be create, view, edit, delete, finish, or unfinish.")
+    
+with open("data.json", "w") as f:
+  json.dump(todos.toJson(), f)

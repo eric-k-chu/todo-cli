@@ -1,7 +1,9 @@
 from todos import *
 
-def createTodo():
-  print("Create")
+def createTodo(todos: Todos, todoStr: str):
+  newTodo = Todo(isCompleted=False, todo=todoStr)
+  todos.todoList[todos.nextId] = newTodo.toJson()
+  todos.nextId += 1
 
 def viewTodo(todos: Todos, cmd: str):
   if cmd == "all":
