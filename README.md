@@ -13,3 +13,13 @@ npm run start
 ```
 go run .
 ```
+
+# /cs
+
+```
+dotnet build .
+```
+
+```
+dotnet run
+```
