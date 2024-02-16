@@ -1,6 +1,6 @@
 # todo-cli
 
-TODO-CLI CRUD application with TypeScript, C++, C#, Go, and Rust
+TODO-CLI CRUD application with various different languages
 
 # /ts
 
@@ -22,4 +22,10 @@ dotnet build .
 
 ```
 dotnet run
+```
+
+# /py
+
+```
+python app.py
 ```
