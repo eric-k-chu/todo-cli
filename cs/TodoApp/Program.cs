@@ -22,7 +22,7 @@ namespace TodoApp
         {
             if (args.Length < 2)
             {
-                Console.WriteLine("Usage: <operation> <cmd>");
+                Console.Error.WriteLine("Usage: <operation> <cmd>");
                 return;
             }
 
@@ -38,7 +38,7 @@ namespace TodoApp
                     CreateTodo(ref todos, args[1]);
                     break;
                 case "view":
-                    Console.WriteLine("Create");
+                    ViewTodo(todos, args[1]);
                     break;
                 case "edit":
                     Console.WriteLine("Create");
@@ -53,7 +53,7 @@ namespace TodoApp
                     Console.WriteLine("Create");
                     break;
                 default:
-                    Console.WriteLine("Unknown operation. Must be create, view, edit, delete, finish, or unfinish");
+                    Console.Error.WriteLine($"Unknown operation '{operation}'. Must be create, view, edit, delete, finish, or unfinish.");
                     break;
             }
 
@@ -71,6 +71,44 @@ namespace TodoApp
             };
             todo.todoList.Add(todo.nextId.ToString(), newTodo);
             todo.nextId++;
+        }
+
+        static void ViewTodo(Todos todo, string cmd)
+        {
+            if (todo.todoList.Count == 0)
+            {
+                Console.WriteLine("You have todos.");
+                return;
+            }
+
+            if (cmd.Equals("all"))
+            {
+                foreach (KeyValuePair<string, Todo> item in todo.todoList)
+                {
+                    string status = item.Value.isCompleted ? "✓" : " ";
+                    Console.WriteLine($"{item.Key}: [{status}] {item.Value.todo}");
+                }
+            }
+            else
+            {
+                if (int.TryParse(cmd, out int key))
+                {
+                    if (!todo.todoList.ContainsKey(cmd))
+                    {
+                        Console.Error.WriteLine($"Todo with key '{cmd}' does not exist in your todos.");
+                    }
+                    else
+                    {
+                        Todo thisTodo = todo.todoList[cmd];
+                        string status = thisTodo.isCompleted ? "✓" : " ";
+                        Console.WriteLine($"{cmd}: [{status}] {thisTodo.todo}");
+                    }
+                }
+                else
+                {
+                    Console.Error.WriteLine($"Specified key '{cmd}' must be a valid positive integer.");
+                }
+            }
         }
     }
 }
