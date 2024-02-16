@@ -44,7 +44,7 @@ namespace TodoApp
                     EditTodo(ref todos, args[1], args[2]);
                     break;
                 case "delete":
-                    Console.WriteLine("Create");
+                    DeleteTodo(ref todos, args[1]);
                     break;
                 case "finish":
                     Console.WriteLine("Create");
@@ -113,16 +113,26 @@ namespace TodoApp
 
         static void EditTodo(ref Todos todos, string key, string todoStr)
         {
-            if (int.TryParse(key, out int id))
+            if (!todos.todoList.ContainsKey(key))
             {
-                if (!todos.todoList.ContainsKey(key))
-                {
-                    Console.Error.WriteLine($"Todo with key '{key}' does not exist in your todos.");
-                }
-                else
-                {
-                    todos.todoList[key].todo = todoStr;
-                }
+                Console.Error.WriteLine($"Todo with key '{key}' does not exist in your todos.");
+            }
+            else
+            {
+                todos.todoList[key].todo = todoStr;
+            }
+
+        }
+
+        static void DeleteTodo(ref Todos todos, string key)
+        {
+            if (!todos.todoList.ContainsKey(key))
+            {
+                Console.Error.WriteLine($"Todo with key '{key}' does not exist in your todos.");
+            }
+            else
+            {
+                todos.todoList.Remove(key);
             }
         }
     }
