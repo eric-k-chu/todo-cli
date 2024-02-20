@@ -53,8 +53,22 @@ def editTodo(todos: Todos, argv: list[str]):
   
   todos.todoList[key]["todo"] = todoStr
   
-def deleteTodo():
-  print("Delete")
+def deleteTodo(todos: Todos, argv: list[str]):
+  if len(argv) < 3:
+    print("Usage: python app.py arg1 arg2 arg3")
+    return
+
+  key = argv[2]
+  if not key.isdigit():
+    print(f"Specified key '{key}' is not a positive integer.")
+    return
+    
+  if key not in todos.todoList:
+    print(f"Todo with key '{key}' does not exist in your todos.")
+    return
+  
+  del todos.todoList[key]
+  
   
 def updateTodo(isFinished: bool):
   print(isFinished)

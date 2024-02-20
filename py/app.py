@@ -24,7 +24,7 @@ match op:
   case "edit":
     editTodo(todos=todos, argv=sys.argv)
   case "delete":
-    deleteTodo()
+    deleteTodo(todos=todos, argv=sys.argv)
   case "finish":
     updateTodo(True)
   case "unfinish":
