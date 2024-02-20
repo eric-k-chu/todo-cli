@@ -26,9 +26,9 @@ match op:
   case "delete":
     deleteTodo(todos=todos, argv=sys.argv)
   case "finish":
-    updateTodo(True)
+    updateTodo(todos=todos, argv=sys.argv, isFinished=True)
   case "unfinish":
-    updateTodo(False)
+    updateTodo(todos=todos, argv=sys.argv, isFinished=False)
   case _:
     print(f"Invalid operation '{op}'. Must be create, view, edit, delete, finish, or unfinish.")
     

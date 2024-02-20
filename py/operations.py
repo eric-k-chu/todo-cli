@@ -2,7 +2,7 @@ from todos import *
 
 def createTodo(todos: Todos, argv: list[str]):
   if len(argv) < 3:
-    print("Usage: python app.py arg1 arg2 arg3")
+    print("Usage: python app.py arg1 arg2")
     return
   
   todoStr = argv[2]
@@ -12,7 +12,7 @@ def createTodo(todos: Todos, argv: list[str]):
 
 def viewTodo(todos: Todos, argv: list[str]):
   if len(argv) < 3:
-    print("Usage: python app.py arg1 arg2 arg3")
+    print("Usage: python app.py arg1 arg2")
     return
   
   cmd = argv[2]
@@ -55,7 +55,7 @@ def editTodo(todos: Todos, argv: list[str]):
   
 def deleteTodo(todos: Todos, argv: list[str]):
   if len(argv) < 3:
-    print("Usage: python app.py arg1 arg2 arg3")
+    print("Usage: python app.py arg1 arg2")
     return
 
   key = argv[2]
@@ -69,6 +69,18 @@ def deleteTodo(todos: Todos, argv: list[str]):
   
   del todos.todoList[key]
   
+def updateTodo(todos: Todos, argv: list[str], isFinished: bool):
+  if len(argv) < 3:
+    print("Usage: python app.py arg1 arg2 arg3")
+    return
   
-def updateTodo(isFinished: bool):
-  print(isFinished)
+  key = argv[2]
+  if not key.isdigit():
+    print(f"Specified key '{key}' is not a positive integer.")
+    return
+    
+  if key not in todos.todoList:
+    print(f"Todo with key '{key}' does not exist in your todos.")
+    return
+  
+  todos.todoList[key]["isCompleted"] = isFinished
