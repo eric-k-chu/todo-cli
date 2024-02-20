@@ -1,11 +1,21 @@
 from todos import *
 
-def createTodo(todos: Todos, todoStr: str):
+def createTodo(todos: Todos, argv: list[str]):
+  if len(argv) < 3:
+    print("Usage: python app.py arg1 arg2 arg3")
+    return
+  
+  todoStr = argv[2]
   newTodo = Todo(isCompleted=False, todo=todoStr)
   todos.todoList[todos.nextId] = newTodo.toJson()
   todos.nextId += 1
 
-def viewTodo(todos: Todos, cmd: str):
+def viewTodo(todos: Todos, argv: list[str]):
+  if len(argv) < 3:
+    print("Usage: python app.py arg1 arg2 arg3")
+    return
+  
+  cmd = argv[2]
   if cmd == "all":
     for key, val in todos.todoList.items():
       status = "✓" if val["isCompleted"] else " "

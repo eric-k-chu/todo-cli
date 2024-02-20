@@ -18,9 +18,9 @@ op = sys.argv[1]
 
 match op:
   case "create":
-    createTodo(todos, sys.argv[2])
+    createTodo(todos=todos, argv=sys.argv)
   case "view":
-    viewTodo(todos, sys.argv[2])
+    viewTodo(todos=todos, argv=sys.argv)
   case "edit":
     editTodo(todos=todos, argv=sys.argv)
   case "delete":
