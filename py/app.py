@@ -22,7 +22,7 @@ match op:
   case "view":
     viewTodo(todos, sys.argv[2])
   case "edit":
-    editTodo()
+    editTodo(todos=todos, argv=sys.argv)
   case "delete":
     deleteTodo()
   case "finish":

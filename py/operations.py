@@ -24,10 +24,24 @@ def viewTodo(todos: Todos, cmd: str):
     status = "✓" if todo["isCompleted"] else " "
     todoStr = todo["todo"]
     print(f"{cmd}: [{status}] {todoStr}")
-    
+      
+def editTodo(todos: Todos, argv: list[str]):
+  if len(argv) < 4:
+    print("Usage: python app.py arg1 arg2 arg3")
+    return
   
-def editTodo():
-  print("Edit")
+  key = argv[2]
+  todoStr = argv[3]
+  
+  if not key.isdigit():
+    print(f"Specified key '{key}' is not a positive integer.")
+    return
+    
+  if key not in todos.todoList:
+    print(f"Todo with key '{key}' does not exist in your todos.")
+    return
+  
+  todos.todoList[key]["todo"] = todoStr
   
 def deleteTodo():
   print("Delete")
