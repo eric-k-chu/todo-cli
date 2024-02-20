@@ -1,5 +1,16 @@
 from todos import *
 
+def validateKey(todos: Todos, key: str) -> bool:
+  if not key.isdigit():
+    print(f"Specified key '{key}' is not a positive integer.")
+    return False
+    
+  if key not in todos.todoList:
+    print(f"Todo with key '{key}' does not exist in your todos.")
+    return False
+  
+  return True
+
 def createTodo(todos: Todos, argv: list[str]):
   if len(argv) < 3:
     print("Usage: python app.py arg1 arg2")
@@ -22,12 +33,7 @@ def viewTodo(todos: Todos, argv: list[str]):
       todo = val["todo"]
       print(f"{key}: [{status}] {todo}")
   else:
-    if not cmd.isdigit():
-      print(f"Specified key '{cmd}' is not a positive integer.")
-      return
-    
-    if cmd not in todos.todoList:
-      print(f"Todo with key '{cmd}' does not exist in your todos.")
+    if not validateKey(todos=todos, key=cmd):
       return
     
     todo = todos.todoList[cmd]
@@ -43,12 +49,7 @@ def editTodo(todos: Todos, argv: list[str]):
   key = argv[2]
   todoStr = argv[3]
   
-  if not key.isdigit():
-    print(f"Specified key '{key}' is not a positive integer.")
-    return
-    
-  if key not in todos.todoList:
-    print(f"Todo with key '{key}' does not exist in your todos.")
+  if not validateKey(todos=todos, key=key):
     return
   
   todos.todoList[key]["todo"] = todoStr
@@ -59,12 +60,7 @@ def deleteTodo(todos: Todos, argv: list[str]):
     return
 
   key = argv[2]
-  if not key.isdigit():
-    print(f"Specified key '{key}' is not a positive integer.")
-    return
-    
-  if key not in todos.todoList:
-    print(f"Todo with key '{key}' does not exist in your todos.")
+  if not validateKey(todos=todos, key=key):
     return
   
   del todos.todoList[key]
@@ -75,12 +71,7 @@ def updateTodo(todos: Todos, argv: list[str], isFinished: bool):
     return
   
   key = argv[2]
-  if not key.isdigit():
-    print(f"Specified key '{key}' is not a positive integer.")
-    return
-    
-  if key not in todos.todoList:
-    print(f"Todo with key '{key}' does not exist in your todos.")
+  if not validateKey(todos=todos, key=key):
     return
   
   todos.todoList[key]["isCompleted"] = isFinished
