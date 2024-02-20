@@ -2,8 +2,7 @@ import {
   createTodo,
   deleteTodo,
   editTodo,
-  finishTodo,
-  unfinishTodo,
+  updateTodo,
   viewTodo,
 } from "../operations.js";
 import { Todos } from "../types.js";
@@ -99,7 +98,7 @@ describe("finishTodo", () => {
         },
       },
     };
-    finishTodo(todo, ["0"]);
+    updateTodo(todo, ["0"], true);
     expect(todo).toEqual({
       nextId: 1,
       todoList: {
@@ -123,7 +122,7 @@ describe("unfinishTodo", () => {
         },
       },
     };
-    unfinishTodo(todo, ["0"]);
+    updateTodo(todo, ["0"], false);
     expect(todo).toEqual({
       nextId: 1,
       todoList: {

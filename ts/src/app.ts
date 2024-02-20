@@ -1,15 +1,14 @@
 import { readFile, writeFile } from "fs/promises";
 import { logError } from "./log-error.js";
-import { UsageError } from "./usage-error.js";
 import {
   createTodo,
   deleteTodo,
   editTodo,
-  finishTodo,
-  unfinishTodo,
+  updateTodo,
   viewTodo,
 } from "./operations.js";
 import { Operation, Todos } from "./types.js";
+import { UsageError } from "./usage-error.js";
 
 try {
   const [, , op, ...args] = process.argv;
@@ -28,10 +27,10 @@ try {
       viewTodo(todos, args);
       break;
     case "finish":
-      finishTodo(todos, args);
+      updateTodo(todos, args, true);
       break;
     case "unfinish":
-      unfinishTodo(todos, args);
+      updateTodo(todos, args, false);
       break;
     case "delete":
       deleteTodo(todos, args);

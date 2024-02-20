@@ -47,26 +47,17 @@ export function viewTodo(todos: Todos, args: string[]): Todo[] {
   }
 }
 
-export function finishTodo(todos: Todos, args: string[]): void {
+export function updateTodo(
+  todos: Todos,
+  args: string[],
+  isFinished: boolean
+): void {
   const [id] = args;
   const todoId = validateId(todos, id, "finish");
   todos.todoList[todoId] = {
     ...todos.todoList[todoId],
-    isCompleted: true,
+    isCompleted: isFinished,
   };
-
-  console.log(`Todo "${todos.todoList[todoId].todo}" finished.`);
-}
-
-export function unfinishTodo(todos: Todos, args: string[]): void {
-  const [id] = args;
-  const todoId = validateId(todos, id, "unfinish");
-  todos.todoList[todoId] = {
-    ...todos.todoList[todoId],
-    isCompleted: false,
-  };
-
-  console.log(`Todo "${todos.todoList[todoId].todo}" unfinished.`);
 }
 
 export function deleteTodo(todos: Todos, args: string[]): void {
