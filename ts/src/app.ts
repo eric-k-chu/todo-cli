@@ -9,12 +9,18 @@ import {
 } from "./operations.js";
 import { Operation, Todos } from "./types.js";
 import { UsageError } from "./usage-error.js";
+import { validateTodo } from "./validate-todo.js";
 
 try {
   const [, , op, ...args] = process.argv;
 
   const json = await readFile("src/data.json", "utf-8");
   const todos = JSON.parse(json) as Todos;
+
+  if (!validateTodo(todos))
+    throw new Error(
+      "Todo Validation error. Please double check the data.json."
+    );
 
   switch (op as Operation) {
     case "create":
