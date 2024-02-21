@@ -155,19 +155,14 @@ func main() {
 		return
 	}
 
-	file, err := os.Open("data.json")
+	jsonData, err := os.ReadFile("data.json")
 	if err != nil {
 		fmt.Println("Error:", err)
-		return
 	}
-	defer file.Close()
 
 	var todos Todos
-	decoder := json.NewDecoder(file)
-	err = decoder.Decode(&todos)
-	if err != nil {
+	if err := json.Unmarshal(jsonData, &todos); err != nil {
 		fmt.Println("Error:", err)
-		return
 	}
 
 	op := os.Args[1]
