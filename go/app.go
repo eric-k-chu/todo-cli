@@ -132,16 +132,12 @@ func updateTodo(todos *Todos, arg []string, isFinished bool) error {
 }
 
 func writeFile(todos Todos) error {
-	file, err := os.Create("data.json")
+	jsonData, err := json.MarshalIndent(todos, "", "  ")
 	if err != nil {
 		return err
 	}
-	defer file.Close()
 
-	encoder := json.NewEncoder(file)
-	encoder.SetIndent("", "  ")
-	err = encoder.Encode(todos)
-	if err != nil {
+	if err := os.WriteFile("data.json", jsonData, 0644); err != nil {
 		return err
 	}
 
