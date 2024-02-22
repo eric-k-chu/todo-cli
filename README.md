@@ -14,16 +14,7 @@ npm run start
 go run .
 ```
 
-_If the error `Operation did not complete successfully because the file contains a 
-virus or potentially unwanted software.` appears, compile and build the program instead._
-
-```
-go build
-```
-
-```
-./app
-```
+_Change the GOTMPDIR env variable and exclude that path in your firewall if issues running a tmp exe occurs_
 
 # /cs
 
