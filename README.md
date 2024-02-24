@@ -31,3 +31,13 @@ dotnet run
 ```
 python app.py
 ```
+
+# /rs
+
+```
+cargo build
+```
+
+```
+cargo run
+```
